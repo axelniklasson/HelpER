@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+export GIT_WORK_TREE=/var/www/helper
+read OLD_REV NEW_REV REF
+
+echo "--> Checking out..."
+git checkout -f
+cd $GIT_WORK_TREE
+
+echo "--> Building frontend..."
+yarn build --cwd frontend
+
+echo "--> Restarting backend..."
+pm2 reload -m backend/process.json
+
+cd -
+echo "--> Done!"
