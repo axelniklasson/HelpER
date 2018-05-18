@@ -8,9 +8,11 @@ git checkout -f
 cd $GIT_WORK_TREE
 
 echo "--> Building frontend..."
-yarn build --cwd frontend
+yarn --cwd frontend
+yarn --cwd frontend build
 
 echo "--> Restarting backend..."
+yarn --cwd backend
 pm2 reload -m backend/process.json
 
 cd -
