@@ -1,0 +1,11 @@
+{
+  "apps": [{
+    "name": "HelpER",
+    "script": "backend/server.js",
+    "exec_mode" : "cluster",
+    "instances": 0,
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }]
+}
