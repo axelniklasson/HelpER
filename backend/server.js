@@ -3,7 +3,7 @@ const fallback = require('express-history-api-fallback');
 const app = express();
 const path = require('path');
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
 	res.json({ hello: 'world' });
 });
 
