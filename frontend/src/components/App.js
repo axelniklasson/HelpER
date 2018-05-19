@@ -24,11 +24,33 @@ class App extends Component {
         lat: 0,
         lon: 0
       },
-      suggestions: [],
+      suggestions: [{
+		"distance": 1350,
+		"name": "Sahlgrenska",
+        "recommended": true,
+        "id": 0,
+		"waitingTime": 47
+	},
+	{
+		"distance": 750,
+		"name": "Mölndal",
+        "id": 1,
+		"recommended": false,
+		"waitingTime": 35
+	},
+	{
+		"distance": 2304,
+		"name": "Östra Sjukhuset",
+        "id": 2,
+		"recommended": false,
+		"waitingTime": 102
+	}
+],
       selectedER: 0,
       slide: {
         left: false,
-        right: true
+        right: true,
+        reverse: false
       },
       position: {
         latitude: 0,
@@ -63,6 +85,9 @@ class App extends Component {
       case '/view2':
         route = forwards ? '/view3' : '/';
         break;
+      case '/view3':
+        route = forwards ? '/view3' : '/view2';
+        break;
       default:
         route = '/';
     }
@@ -70,9 +95,9 @@ class App extends Component {
   }
 
   animate(forwards) {
-    this.setState({ slide: { left: forwards, right: !forwards } }, () => {
+    this.setState({ slide: { left: forwards, right: !forwards, reverse: !forwards} }, () => {
       setTimeout(() => {
-        this.setState({ slide: { left: !forwards, right: forwards } }, () => {
+        this.setState({ slide: { left: !forwards, right: forwards, reverse: !forwards } }, () => {
           let route = this.resolveRoute(forwards);
           this.props.history.push(route);
         });
@@ -103,7 +128,7 @@ class App extends Component {
           } />
 
           <Route path="/view3" render={() => {
-            return <Component3 slide={this.state.slide} />}
+            return <Component3 slide={this.state.slide} suggestions={this.state.suggestions} />}
           } />
         </div>
         <Footer className="footer" />

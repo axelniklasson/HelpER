@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import './Component2.scss';
 
 class Component2 extends Component {
-  
   render() {
     return (
       <div className={classNames(
         'pain-buttons-wrapper', 
         this.props.slide.left ? 'slideLeft' : '',
-        this.props.slide.right ? 'slideRight' : ''
+        this.props.slide.right ? 'slideRight' : '',
+        this.props.slide.reverse ? 'reverse' : ''
       )}>
       <div className="pain-button"> 
         <div onClick={() => this.props.onClick(1)}></div>

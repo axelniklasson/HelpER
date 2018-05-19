@@ -51,4 +51,9 @@ body {
 .footer {
   margin: 16px 0;
   font-size: 18px;
+  
+  a {
+    text-decoration: none;
+    font-weight: medium;
+  }
 }

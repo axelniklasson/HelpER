@@ -23,7 +23,8 @@ class Component1 extends Component {
       <div className={classNames(
         'injury-buttons-wrapper', 
         this.props.slide.left ? 'slideLeft' : '',
-        this.props.slide.right ? 'slideRight' : ''
+        this.props.slide.right ? 'slideRight' : '',
+        this.props.slide.reverse ? 'reverse' : ''
       )}>
         {this.renderButtons()}
       </div>
