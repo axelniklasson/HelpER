@@ -1,8 +1,9 @@
 from sklearn.externals import joblib
 import numpy as np
-from helpers import load_obj
-from NetworkModel import RegressionModel
+from helpers import load_obj, load, save
+from regression_model import RegressionModel
 from data_generator import sample_input, generate_dataset
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 
 doctor_population_size = 1000
@@ -13,6 +14,9 @@ no_samples = 50000
 no_symptoms = 8
 no_rates = 4
 
+in_scaler_filename = 'in_scaler.pkl'
+out_scaler_filename = 'out_scaler.pkl'
+
 
 def make_dataset():
 	generate_dataset(doctor_population_size=doctor_population_size, no_doctor_features=no_features,
@@ -21,8 +25,16 @@ def make_dataset():
 
 
 def make_model(filename, verbose=False):
-	x = load_obj('x-50000-samples-14:00')
-	y = load_obj('y-50000-samples-14:00')
+	x = load_obj('x-samples')
+	y = load_obj('y-samples')
+
+	in_scaler = StandardScaler()
+	in_scaler.fit(x)
+	x = in_scaler.transform(x)
+
+	out_scaler = MinMaxScaler()
+	out_scaler.fit(y[:, None])
+	y = out_scaler.transform(y[:, None])
 
 	no_samples = x.shape[0]
 
@@ -38,8 +50,11 @@ def make_model(filename, verbose=False):
 	x_test = x[mask[split_ind:]]
 	y_test = y[mask[split_ind:]]
 
-	model = RegressionModel(no_hidden=300)
+	model = RegressionModel()
 	model.fit(x_train, y_train)
+
+	save(in_scaler, in_scaler_filename)
+	save(out_scaler, out_scaler_filename)
 
 	joblib.dump(model, filename)
 	if verbose:
@@ -49,11 +64,18 @@ def make_model(filename, verbose=False):
 		print('Training score: {}'.format(model.score(x_train, y_train)))
 		print('Testing score: {}'.format(model.score(x_test, y_test)))
 
+	for i in range(0, 10):
+		print(model.predict(x_test[i, None]))
+		print(y_test[i])
+		print('')
+
 
 def predict(category, rate):
 	assert 1 <= category <= 7 and 1 <= rate <= 4
 
 	model = joblib.load('model.pkl')
+	in_scaler = load(in_scaler_filename)
+	out_scaler = load(out_scaler_filename)
 
 	category_one_hot = np.zeros(no_symptoms)
 	category_one_hot[category-1] = 1
@@ -70,7 +92,8 @@ def predict(category, rate):
 		queue, doctor_mean = sample_input(doctor_range, doctor_population_size, no_features)
 		feature_map = np.concatenate((np.array([queue]), doctor_mean, hospital_one_hot, category_one_hot, rate_one_hot))
 		queues[i] = round(queue)
-		times[i] = model.predict(feature_map.reshape(1,-1))
+		feature_map = in_scaler(feature_map.reshape(1, -1))
+		times[i] = out_scaler.inverse_transform(model.predict(feature_map).reshape(1, -1))
 		np.roll(hospital_one_hot, 1)
 
 	return times, queues

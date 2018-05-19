@@ -11,4 +11,13 @@ def load_obj(name):
 		return pickle.load(f)
 
 
+def save(obj, name):
+	with open(name, 'wb') as f:
+		pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+
+def load(name):
+	with open(name, 'rb') as f:
+		return pickle.load(f)
+
 
