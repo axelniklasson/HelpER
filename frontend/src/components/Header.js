@@ -7,14 +7,18 @@ class Header extends Component {
   render() {
     return (
       <div className="page-header">
-        <button className="header-button">foo</button>
+        <button className="header-button">
+          <i class="material-icons">arrow_back</i>
+        </button>
         <div className="text-center">
           <div className="header-logo">
             <img src={Logo} alt="logo"></img>
             <div>HelpER</div>
           </div>
         </div>
-        <button className="header-button">bar</button>
+        <button className="header-button">
+          <i class="material-icons text">?</i>
+        </button>
       </div>
     ); 
   }
