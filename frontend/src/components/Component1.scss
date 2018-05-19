@@ -1,0 +1,33 @@
+.injury-buttons-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 25px;
+
+  .injury-button {
+    flex: 0 0 calc(100% / 3);
+
+    & > div {
+      padding: 10px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #FFEBD8;
+      border-radius: 17px;
+      margin: 10px;
+
+      img {
+        width: 50px;
+        height: 50px; 
+        margin: auto;
+      }
+
+      span {
+        margin-top: 10px; 
+        color: black;
+        font-size: 11px;
+        font-weight: light;
+        text-align: center;
+      }
+    }
+  }
+}
