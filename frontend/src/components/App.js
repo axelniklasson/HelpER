@@ -46,6 +46,7 @@ class App extends Component {
     }
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
+      console.log('location found');
       this.setState({ position: { latitude, longitude } });
     });
   }
@@ -101,15 +102,14 @@ class App extends Component {
   backClicked = () => this.animate(false);
 
   painClicked = (id) => {
-    this.setState({injury: {...this.state.injury, pain: id}}, () => {
-      setTimeout(() => {
-        this.animate(true);
-      }, 500);
-    });
+    this.setState({injury: {...this.state.injury, pain: id}});
   }
 
   setSuggestions = (suggestions) => {
     this.setState({ suggestions });
+    setTimeout(() => {
+      this.animate(true);
+    }, 500);
   }
 
   render() {
@@ -131,7 +131,10 @@ class App extends Component {
           } />
 
           <Route path="/view3" render={() => {
-            return <Component3 slide={this.state.slide} suggestions={this.state.suggestions} />}
+            return <Component3 slide={this.state.slide} suggestions={this.state.suggestions}
+                category={this.state.injury.category}
+                pain={this.state.injury.pain}
+                />}
           } />
           <Route path="/view4" render={() => {
             return <Component4 slide={this.state.slide} />} 
