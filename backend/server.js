@@ -7,6 +7,7 @@ const bodyParser 	= require('body-parser');
 // Parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 // Import API
 console.log('- Starting API')

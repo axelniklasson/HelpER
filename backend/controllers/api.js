@@ -10,6 +10,7 @@ const hospitals = [{
     'name':'Sahlgrenska',
     'distance':0,
     'waitingTime':0,
+    'queue':0,
     'recommended':false,
     'lat':57.6823672,
     'long':11.9592431
@@ -19,6 +20,7 @@ const hospitals = [{
     'name':'Mölndal',
     'distance':0,
     'waitingTime':0,
+    'queue':0,
     'recommended':false,
     'lat':57.6612323,
     'long':12.0101488
@@ -28,6 +30,7 @@ const hospitals = [{
     'name':'Östra Sjukhuset',
     'distance':0,
     'waitingTime':0,
+    'queue':0,
     'recommended':false,
     'lat':57.7215131,
     'long':12.0500316
