@@ -22,7 +22,7 @@ class PageCrumbs extends Component {
       default:
         currentStep = 1;
     }
-    const maxSteps = 4;
+    const maxSteps = 3;
     return `${currentStep}/${maxSteps}`;
   }
 

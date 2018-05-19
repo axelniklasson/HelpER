@@ -38,7 +38,7 @@ class Component1 extends Component {
           this.props.slide.right ? 'slideRight' : '',
           this.props.slide.reverse ? 'reverse' : ''
         )}>
-          <p style={{ textAlign: 'center', flexBasis: '100%' }}>"Where does it hurt?"</p>
+          <p style={{ textAlign: 'center', flexBasis: '100%' }}>Where does it hurt?</p>
           {this.renderButtons()}
         </div>
       </div>

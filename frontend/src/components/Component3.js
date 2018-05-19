@@ -26,11 +26,22 @@ class Component3 extends Component {
     .map(key => injuryTypes[key])
     .find(({ id }) => id === this.props.category);
 
+  renderWaitingTime = (seconds) => {
+    let minutes = Math.floor(seconds / 60);
+    if (minutes < 60) {
+      return `${minutes} min`;
+    }
+
+    let hours = Math.floor(minutes / 60);
+    minutes = Math.floor(minutes % 60);
+    return `${hours} h ${minutes} min`;
+  }
+
   locationHref = (lon, lat) => `geo:${lon},${lat}`;
 
   render() {
     let { suggestions } = this.props;
-    // suggestions = [{"id":0,"name":"Sahlgrenska","distance":6501.089809099636,"waitingTime":0,"queue":0,"recommended":false,"lat":57.6823672,"long":11.9592431},{"id":1,"name":"Mölndal","distance":6499.548060698291,"waitingTime":0,"queue":0,"recommended":false,"lat":57.6612323,"long":12.0101488},{"id":2,"name":"Östra Sjukhuset","distance":6506.627070413939,"waitingTime":0,"queue":0,"recommended":false,"lat":57.7215131,"long":12.0500316}];
+
     return (
       <div className={classNames(
         this.props.slide.left ? 'slideLeft' : '',
@@ -49,7 +60,7 @@ class Component3 extends Component {
                 <img src={Hospital} alt="hospital" />
                 <span className="name">{el.name}</span>
                 <div className="extra-info">
-                  <span>{`Waiting time: ${el.waitingTime || 30} min`}</span>
+                  <span>{`Waiting time: ${this.renderWaitingTime(el.waitingTime)}`}</span>
                   <span>{`Queue: ${el.queue || 5} people`}</span>
                   <span>{`Distance: ${Math.round( el.distance * 10 ) / 10} km`}</span>
                 </div>
