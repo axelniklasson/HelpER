@@ -3,6 +3,7 @@ const fallback 		= require('express-history-api-fallback');
 const app 				= express();
 const path 				= require('path');
 const bodyParser 	= require('body-parser');
+const cors        = require('cors');
 
 // Parser middleware
 app.use(bodyParser.json());
