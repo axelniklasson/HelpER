@@ -111,7 +111,11 @@ class App extends Component {
 
   backClicked = () => this.animate(false);
   painClicked = (id) => {
-    this.setState({injury: {...this.state.injury, pain: id}}, () => this.animate(true));
+    this.setState({injury: {...this.state.injury, pain: id}}, () => {
+      setTimeout(() => {
+        this.animate(true);
+      }, 500);
+    });
   }
 
   render() {
@@ -124,7 +128,7 @@ class App extends Component {
             return <Component1 slide={this.state.slide} onClick={this.categoryClicked} />}
           } />
           <Route path="/view2" render={() => {
-            return <Component2 slide={this.state.slide} onClick={this.painClicked} />}
+            return <Component2 slide={this.state.slide} pain={this.state.injury.pain} onClick={this.painClicked} />}
           } />
 
           <Route path="/view3" render={() => {
