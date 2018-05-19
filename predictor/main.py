@@ -4,8 +4,8 @@ from NetworkModel import RegressionModel
 from sklearn.kernel_ridge import KernelRidge
 
 if __name__ == '__main__':
-	x = load_obj('x-50000-samples-11:42')
-	y = load_obj('y-50000-samples-11:42')
+	x = load_obj('x-50000-samples-14:00')
+	y = load_obj('y-50000-samples-14:00')
 
 	no_samples = x.shape[0]
 	no_features = x.shape[1]
@@ -22,9 +22,7 @@ if __name__ == '__main__':
 	x_test = x[mask[split_ind:]]
 	y_test = y[mask[split_ind:]]
 
-	#model = RegressionModel(no_hidden=200)
-	model = KernelRidge()
-
+	model = RegressionModel(no_hidden=300)
 	model.fit(x_train, y_train)
 
 	print('Training score: {}'.format(model.score(x_train, y_train)))

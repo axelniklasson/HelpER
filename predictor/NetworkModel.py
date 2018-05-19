@@ -5,16 +5,16 @@ class RegressionModel:
 
 	model = None
 
-	def __init__(self, no_hidden,):
+	def __init__(self, no_hidden):
 		self.model = MLPRegressor(hidden_layer_sizes=(no_hidden, ),
 		                          activation='relu',
 		                          solver='adam',
 		                          alpha=0.0001,
 		                          batch_size='auto',
 		                          learning_rate='constant',
-		                          learning_rate_init=0.001,
+		                          learning_rate_init=0.01,
 		                          power_t=0.5,
-		                          max_iter=750,
+		                          max_iter=10000,
 		                          shuffle=True,
 		                          random_state=None,
 		                          tol=0.0001,
@@ -28,7 +28,7 @@ class RegressionModel:
 		                          beta_2=0.999,
 		                          epsilon=1e-08)
 
-	def train(self, X, y):
+	def fit(self, X, y):
 		self.model = self.model.fit(X, y)
 
 	def predict(self, X):

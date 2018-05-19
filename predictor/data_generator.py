@@ -1,15 +1,25 @@
 import numpy as np
+import scipy.linalg
 from helpers import save_obj
 
 
-def generate_time(samples, mean_wait_time_seconds=7200, std_wait_time_seconds=1800):
-	return np.random.normal(mean_wait_time_seconds, std_wait_time_seconds, samples)
+def generate_queue(mean=20, std=5):
+	return np.maximum(0, np.random.normal(mean, std))
+
+
+def generate_time(samples, queue, doctor_mean, mean_wait_time_seconds=1800, std_wait_time_seconds=1200):
+	norm = scipy.linalg.norm(doctor_mean)
+	mean_wait_time_seconds = mean_wait_time_seconds * 10*(1/norm) + (queue * 30)
+	sample = np.random.normal(mean_wait_time_seconds, std_wait_time_seconds, samples)
+	return sample
 
 
 def generate_doctors(population_size, no_features=10):
-	cov_matrix = 0.1 * np.eye(no_features, no_features)
+	cov_matrix = 0.05 * np.eye(no_features, no_features)
 	mean = 0.5 * np.ones(no_features)
 	doctor_population = np.random.multivariate_normal(mean, cov_matrix, population_size)
+	z = np.zeros_like(doctor_population)
+	doctor_population = np.maximum(doctor_population, z)
 	return doctor_population
 
 
@@ -28,8 +38,10 @@ def generate_hospitals(no_hospitals, doctor_range, doctor_population):
 def generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, no_rates):
 	hospital_one_hot, doctor_mean = generate_hospitals(no_hospitals, doctor_range, doctor_population)
 	symptom = generate_symptom(no_symptoms=no_symptoms, no_rates=no_rates)
-	feature_map = np.concatenate((doctor_mean, symptom, hospital_one_hot))
-	time = generate_time(1)
+	queue = generate_queue()
+	# Make feature map
+	feature_map = np.concatenate((np.array([queue]), doctor_mean, symptom, hospital_one_hot))
+	time = generate_time(1, queue, doctor_mean)
 	return feature_map, time
 
 
@@ -52,7 +64,7 @@ def generate_dataset():
 
 	doctor_population = generate_doctors(population_size=doctor_population_size, no_features=no_features)
 
-	feature_size = no_hospitals + no_features + no_symptoms + no_rates
+	feature_size = no_hospitals + no_features + no_symptoms + no_rates + 1
 	x = np.empty((no_samples, feature_size))
 	y = np.empty(no_samples)
 	for i in range(0, no_samples):
@@ -61,8 +73,8 @@ def generate_dataset():
 		if i % 1000 == 0:
 			print('Done {} of {}'.format(i, no_samples))
 
-	save_obj(x, 'x-50000-samples-11:42')
-	save_obj(y, 'y-50000-samples-11:42')
+	save_obj(x, 'x-50000-samples-14:')
+	save_obj(y, 'y-50000-samples-14:16')
 
 
 if __name__ == '__main__':
