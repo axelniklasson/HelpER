@@ -14,20 +14,21 @@ exports.heartbeat = function() {
   })
 };
 
-exports.requestPrediction = function() {
+exports.requestPrediction = function(category, pain) {
   return new Promise(function(resolve, reject) {
     var options = {
       method: 'POST',
       uri: baseUrl,
       body: {
-        some: 'payload'
+        category: category,
+        pain: pain
       },
       json: true // Automatically stringifies the body to JSON
     };
 
     rp(options)
-      .then(function (parsedBody) {
-        resolve(parsedBody);
+      .then(function (prediction) {
+        resolve(prediction);
       })
       .catch(function (err) {
         console.log('Post failed, returning');

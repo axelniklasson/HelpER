@@ -1,0 +1,51 @@
+.suggestions-wrapper {
+  
+  .suggestion-item {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid white;
+    margin: 15px 25px;
+    flex: 1;
+    padding: 6px;
+    font-size: 12px;
+    height: 76px;
+    padding-bottom: 9px;
+    padding-top: 10px;
+    position: relative;
+
+    img {
+      width: 46px;
+      height: 32px;
+    }
+
+    span.recommended {
+      flex-basis: 100%; 
+      margin-bottom: 10px;
+    }
+
+    span.name {
+      flex-basis: 40%; 
+      margin-left: 5px;
+      font-size: 15px;
+    }
+
+    .extra-info {
+      flex-basis: 35%;
+      position: absolute;
+      top: 0px;
+      height: 100%;
+      right: 6px;
+      display: flex;
+      text-align: right;
+      flex-direction: column;
+      justify-content: center;
+
+      span {
+        display: block; 
+        padding: 3px 0;
+      }
+    }
+  }
+}
