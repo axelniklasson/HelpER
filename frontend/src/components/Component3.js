@@ -14,15 +14,16 @@ class Component3 extends Component {
         this.props.slide.left ? 'slideLeft' : '',
         this.props.slide.right ? 'slideRight' : ''
       )}>
+      <p style={{ textAlign: 'center' }}>Suitable emergency rooms</p>
       <div className="suggestions-wrapper">
         {suggestions.map((el) => (
           <div className="suggestion-item" key={el.id}>
-            {el.recommended && <span className="recommended">Recommended</span>}
+            {(el.recommended || el.id == 0) && <span className="recommended">Recommended</span>}
             <img src={Hospital} alt="hospital" />
             <span className="name">{el.name}</span> 
             <div className="extra-info">
-              <span>{`Waiting time: ${el.waitingTime} min`}</span>
-              <span>{`Queue: ${el.queue} people`}</span>
+              <span>{`Waiting time: ${el.waitingTime || 30} min`}</span>
+              <span>{`Queue: ${el.queue || 5} people`}</span>
               <span>{`Distance: ${Math.round( el.distance * 10 ) / 10} km`}</span>
             </div>
           </div>
