@@ -1,5 +1,4 @@
 import pickle
-from helpers import load_obj
 import matplotlib.pyplot as plt
 from pandas.plotting import scatter_matrix
 import pandas
