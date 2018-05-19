@@ -1,8 +1,9 @@
 const express   = require('express');
 const router    = express.Router();
-
+const ipc       = require('../ipc');
 var calls = 0;
 
+/*
 const hospitals = [{
 'name':'Sahlgrenska',
 'distance':1350,
@@ -21,6 +22,7 @@ const hospitals = [{
 'waitingTime':102,
 'recommended':false
 }];
+*/
 
 router.use((req, res, next) => {
   console.log('Time:', Date.now(), ', #', calls, ': ', req.baseUrl);
@@ -48,8 +50,10 @@ router.route('/injuiry')
       const pain     = req.body.pain;
       const lat      = req.body.lat;
       const long     = req.body.long;
-      // PERFORM ACTIONS HERE
-      res.json(hospitals);
+      ipc.requestPrediction().then(function(parsedData) {
+        res.json(parsedData);
+      })
+
     } catch(e) {
       res.status(400).json({'status':'error', 'msg':'Invalid input data'});
       return;

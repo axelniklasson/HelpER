@@ -13,3 +13,25 @@ exports.heartbeat = function() {
       })
   })
 };
+
+exports.requestPrediction = function() {
+  return new Promise(function(resolve, reject) {
+    var options = {
+      method: 'POST',
+      uri: baseUrl,
+      body: {
+        some: 'payload'
+      },
+      json: true // Automatically stringifies the body to JSON
+    };
+
+    rp(options)
+      .then(function (parsedBody) {
+        resolve(parsedBody);
+      })
+      .catch(function (err) {
+        console.log('Post failed, returning');
+        return;
+      });
+  })
+}
