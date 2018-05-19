@@ -24,28 +24,7 @@ class App extends Component {
         lat: 0,
         lon: 0
       },
-      suggestions: [{
-		"distance": 1350,
-		"name": "Sahlgrenska",
-        "recommended": true,
-        "id": 0,
-		"waitingTime": 47
-	},
-	{
-		"distance": 750,
-		"name": "Mölndal",
-        "id": 1,
-		"recommended": false,
-		"waitingTime": 35
-	},
-	{
-		"distance": 2304,
-		"name": "Östra Sjukhuset",
-        "id": 2,
-		"recommended": false,
-		"waitingTime": 102
-	}
-],
+      suggestions: [],
       selectedER: 0,
       slide: {
         left: false,
@@ -118,6 +97,10 @@ class App extends Component {
     });
   }
 
+  setSuggestions = (suggestions) => {
+    this.setState({ suggestions });
+  }
+
   render() {
     return (
       <div className="app">
@@ -128,7 +111,12 @@ class App extends Component {
             return <Component1 slide={this.state.slide} onClick={this.categoryClicked} />}
           } />
           <Route path="/view2" render={() => {
-            return <Component2 slide={this.state.slide} pain={this.state.injury.pain} onClick={this.painClicked} />}
+            return <Component2 slide={this.state.slide} pain={this.state.injury.pain} onClick={this.painClicked}
+                category={this.state.injury.category}
+                lat={this.state.position.latitude}
+                long={this.state.position.longitude}
+                setSuggestions={this.setSuggestions}
+                />}
           } />
 
           <Route path="/view3" render={() => {

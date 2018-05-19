@@ -8,6 +8,33 @@ class Component2 extends Component {
     return color;
   }
 
+  onPainDegreeSelection = (pain) => {
+    this.props.onClick(pain);
+    const { category, lat, long } = this.props;
+    fetch('https://helper.lejonkulan.ninja/api/v1/injury', {
+      method: 'POST',
+      body: JSON.stringify({ category, pain, lat, long }),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    })
+    .then(res => res.json())
+    .then(suggestions => this.props.setSuggestions(suggestions))
+    .catch(err => {});
+  }
+
+  renderButtons() {
+    const labels = { 1: 'Low', 4: 'High' };
+    return [1, 2, 3, 4].map(painDegree => (
+      <div className="pain-button" key={painDegree}>
+        <div style={{ background: this.getColor(painDegree)}}
+            onClick={() => this.onPainDegreeSelection(painDegree)}></div>
+        {labels[painDegree] &&
+        <span>{labels[painDegree]}</span>}
+      </div>
+    ));
+  }
+
   render() {
     return (
       <div className={classNames(
@@ -16,20 +43,8 @@ class Component2 extends Component {
         this.props.slide.right ? 'slideRight' : '',
         this.props.slide.reverse ? 'reverse' : ''
       )}>
-      <div className="pain-button"> 
-        <div style={{ background: this.getColor(1)}} onClick={() => this.props.onClick(1)}></div>
-        <span>Low</span>
-      </div>
-      <div className="pain-button"> 
-        <div style={{ background: this.getColor(2)}} onClick={() => this.props.onClick(2)}></div>
-      </div>
-      <div className="pain-button"> 
-        <div style={{ background: this.getColor(3)}} onClick={() => this.props.onClick(3)}></div>
-      </div>
-      <div className="pain-button"> 
-        <div style={{ background: this.getColor(4)}} onClick={() => this.props.onClick(4)}></div>
-        <span>High</span>
-      </div>
+      {this.renderButtons()}
+
       <div className="pain-text">
         <span>"How much pain do you have?"</span>
       </div>

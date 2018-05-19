@@ -8,7 +8,6 @@ import './Component3.scss';
 class Component3 extends Component {
   render() {
     const { suggestions } = this.props;
-    console.log(suggestions);
 
     return (
       <div className={classNames(
