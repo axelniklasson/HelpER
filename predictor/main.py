@@ -28,10 +28,12 @@ def make_model(filename, verbose=False):
 	x = load_obj('x-samples')
 	y = load_obj('y-samples')
 
+	# Transform inputs
 	in_scaler = StandardScaler()
 	in_scaler.fit(x)
 	x = in_scaler.transform(x)
 
+	# Transform outputs
 	out_scaler = MinMaxScaler()
 	out_scaler.fit(y[:, None])
 	y = out_scaler.transform(y[:, None])
@@ -63,11 +65,6 @@ def make_model(filename, verbose=False):
 	if verbose:
 		print('Training score: {}'.format(model.score(x_train, y_train)))
 		print('Testing score: {}'.format(model.score(x_test, y_test)))
-
-	for i in range(0, 10):
-		print(model.predict(x_test[i, None]))
-		print(y_test[i])
-		print('')
 
 
 def predict(category, rate):
