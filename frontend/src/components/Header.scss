@@ -1,0 +1,41 @@
+.page-header {
+  display: flex;
+  & > div {
+    flex: 1;
+    &:first-child { margin-left: 80px; }
+    &:last-child { margin-right: 80px; }
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.header-button {
+  margin: 16px;
+  padding: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  background: none;
+  border: 1px solid white;
+  border-radius: 50%;
+  outline: none;
+}
+
+.header-logo {
+  margin-top: 16px;
+  width: 128px;
+  height: 128px;
+  border: 1px solid white;
+  border-radius: 50%;
+  font-size: 20px;
+  & img {
+    margin-top: 28px;
+    width: 104px;
+  }
+}
+
+.material-icons.text {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  line-height: 48px;
+}

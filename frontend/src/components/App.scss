@@ -1,0 +1,16 @@
+body { 
+  background: linear-gradient(to bottom, #6B8E92, #1A1A1A);
+  margin: 0;
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .main {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}

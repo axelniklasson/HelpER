@@ -1,8 +1,7 @@
 *.swp
 *.swo
-DS_Store
+.DS_Store
 node_modules
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

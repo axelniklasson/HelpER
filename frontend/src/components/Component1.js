@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
+
+import * as injuryTypes from '../injury-types';
+
+import './Component1.scss';
 
 class Component1 extends Component {
+  renderButtons() {
+    return Object.keys(injuryTypes).map(key => injuryTypes[key])
+    .map(({ id, name, alt, icon }) => (
+      <div className="injury-button" key={id}>
+        <div onClick={() => this.props.onClick(id)}>
+          <img src={icon} alt={alt} />
+          <span>{name}</span>
+        </div>
+      </div>
+    ));
+  }
+
   render() {
     return (
-      <div>
-        <h1>Component1</h1>
-        <p>Stay tuned for some awesome content</p>
-        <img alt="logo" src="https://updates.theteamie.com/wp-content/uploads/2016/08/hackathon-cover-image1.png" />
+      <div className={classNames(
+        'injury-buttons-wrapper', 
+        this.props.slide.left ? 'slideLeft' : '',
+        this.props.slide.right ? 'slideRight' : '',
+        this.props.slide.reverse ? 'reverse' : ''
+      )}>
+        {this.renderButtons()}
       </div>
     ); 
   }
