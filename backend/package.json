@@ -2,7 +2,9 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "express-history-api-fallback": "^2.2.1"
+    "express-history-api-fallback": "^2.2.1",
+    "request": "^2.86.0",
+    "request-promise": "^4.2.2"
   },
   "scripts": {
     "start": "node server.js"
