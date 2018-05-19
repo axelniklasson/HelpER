@@ -6,28 +6,31 @@ var calls = 0;
 
 // hospitals
 const hospitals = [{
-'name':'Sahlgrenska',
-'distance':0,
-'waitingTime':0,
-'recommended':false,
-'lat':57.6823672,
-'long':11.9592431
-},
-{
-'name':'Mölndal',
-'distance':0,
-'waitingTime':0,
-'recommended':false,
-'lat':57.6612323,
-'long':12.0101488
-},
-{
-'name':'Östra Sjukhuset',
-'distance':0,
-'waitingTime':0,
-'recommended':false,
-'lat':57.7215131,
-'long':12.0500316
+    'id':0
+    'name':'Sahlgrenska',
+    'distance':0,
+    'waitingTime':0,
+    'recommended':false,
+    'lat':57.6823672,
+    'long':11.9592431
+  },
+  {
+    'id':1
+    'name':'Mölndal',
+    'distance':0,
+    'waitingTime':0,
+    'recommended':false,
+    'lat':57.6612323,
+    'long':12.0101488
+  },
+  {
+    'id':2
+    'name':'Östra Sjukhuset',
+    'distance':0,
+    'waitingTime':0,
+    'recommended':false,
+    'lat':57.7215131,
+    'long':12.0500316
 }];
 
 router.use((req, res, next) => {
@@ -55,8 +58,8 @@ router.route('/injury')
       // extract data
       const category = req.body.category;
       const pain     = req.body.pain;
-      const userLat      = req.body.lat;
-      const userLong     = req.body.long;
+      const userLat  = req.body.lat;
+      const userLong = req.body.long;
 
       // copy hospitals to a future response
       var response = JSON.parse(JSON.stringify(hospitals));
