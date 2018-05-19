@@ -101,15 +101,14 @@ class App extends Component {
   backClicked = () => this.animate(false);
 
   painClicked = (id) => {
-    this.setState({injury: {...this.state.injury, pain: id}}, () => {
-      setTimeout(() => {
-        this.animate(true);
-      }, 500);
-    });
+    this.setState({injury: {...this.state.injury, pain: id}});
   }
 
   setSuggestions = (suggestions) => {
     this.setState({ suggestions });
+    setTimeout(() => {
+      this.animate(true);
+    }, 500);
   }
 
   render() {
