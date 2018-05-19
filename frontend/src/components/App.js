@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
 
 import Header from './Header';
 import Component1 from './Component1';
@@ -14,24 +14,39 @@ class App extends Component {
     super(props); 
 
     // root state
-    this.state = {};
+    this.state = {
+      injury: {
+        category: -1,
+        pain: -1
+      },
+      location: {
+        lat: -1,
+        lon: -1
+      },
+      suggestions: [],
+      selectedER: -1
+    };
+  }
+
+  categoryClicked = (id) => {
+    this.setState({ injury: { ...this.state.injury, category: id } });
+    this.props.history.push('/view2');
   }
 
   render() {
     return (
-      <Router>
-        <div className="app">
-          <Header />
-          <div className="main">
-            <Route exact path="/" component={Component1} />
-            <Route path="/view2" component={Component2} />
-            <Route path="/view3" component={Component3} />
-          </div>
-          <Footer className="footer" />
+      <div className="app">
+        <Header />
+        <p>{this.state.injury.category}</p>
+        <div className="main">
+          <Route exact path="/" render={() => <Component1 onClick={this.categoryClicked} />} />
+          <Route exact path="/view2" render={() => <Component2 />} />
+          <Route exact path="/view3" render={() => <Component3 />} />
         </div>
-      </Router>
+        <Footer className="footer" />
+      </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
