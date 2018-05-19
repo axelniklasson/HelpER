@@ -49,7 +49,7 @@ class Component2 extends Component {
       )}>
         <div className="pain-buttons-wrapper">
           <div className="pain-text text-center">
-            <span>"How much pain do you have?"</span>
+            <span>How much pain do you have?</span>
           </div>
           {this.renderButtons()}
         </div>

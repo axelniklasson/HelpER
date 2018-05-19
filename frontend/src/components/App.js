@@ -131,7 +131,10 @@ class App extends Component {
           } />
 
           <Route path="/view3" render={() => {
-            return <Component3 slide={this.state.slide} suggestions={this.state.suggestions} />}
+            return <Component3 slide={this.state.slide} suggestions={this.state.suggestions}
+                category={this.state.injury.category}
+                pain={this.state.injury.pain}
+                />}
           } />
           <Route path="/view4" render={() => {
             return <Component4 slide={this.state.slide} />} 
