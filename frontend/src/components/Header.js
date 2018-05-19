@@ -10,7 +10,7 @@ class Header extends Component {
         <button className="header-button">foo</button>
         <div className="text-center">
           <div className="header-logo">
-            <img src={Logo}></img>
+            <img src={Logo} alt="logo"></img>
             <div>HelpER</div>
           </div>
         </div>
