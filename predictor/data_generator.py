@@ -22,19 +22,18 @@ def generate_hospitals(no_hospitals, doctor_range, doctor_population):
 	hospital = np.random.randint(0, no_hospitals)
 	one_hot_hospitals = np.zeros(no_hospitals)
 	one_hot_hospitals[hospital] = 1
-	return one_hot_hospitals, doctor_set
+	return one_hot_hospitals, doctor_set.mean(axis=0)
 
 
-def generate_sample(doctor_population, no_hospitals, doctor_range):
-	hospital_one_hot, doctor_set = generate_hospitals(no_hospitals, doctor_range, doctor_population)
-	symptom = generate_symptom()
-	hospital_sympton_concat = np.concatenate((symptom, hospital_one_hot))
-	repeated_symptoms = np.repeat(hospital_sympton_concat.reshape(1,-1), doctor_set.shape[0], axis=0)
+def generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, no_rates):
+	hospital_one_hot, doctor_mean = generate_hospitals(no_hospitals, doctor_range, doctor_population)
+	symptom = generate_symptom(no_symptoms=no_symptoms, no_rates=no_rates)
+	feature_map = np.concatenate((doctor_mean, symptom, hospital_one_hot))
 	time = generate_time(1)
-	return np.concatenate((doctor_set, repeated_symptoms), axis=1), time
+	return feature_map, time
 
 
-def generate_symptom(no_symptoms=8, no_rates=4):
+def generate_symptom(no_symptoms, no_rates):
 	symptom = np.zeros(no_symptoms)
 	rate = np.zeros(no_rates)
 	symptom[np.random.randint(0, symptom.shape[0])] = 1
@@ -43,20 +42,27 @@ def generate_symptom(no_symptoms=8, no_rates=4):
 
 
 def generate_dataset():
-	doctor_population = generate_doctors(population_size=1000, no_features=10)
+	doctor_population_size = 1000
+	no_features = 10
 	no_hospitals = 3
 	doctor_range = (10, 100)
 	no_samples = 50000
+	no_symptoms = 8
+	no_rates = 4
 
-	samples = []
+	doctor_population = generate_doctors(population_size=doctor_population_size, no_features=no_features)
+
+	feature_size = no_hospitals + no_features + no_symptoms + no_rates
+	x = np.empty((no_samples, feature_size))
+	y = np.empty(no_samples)
 	for i in range(0, no_samples):
-		x, y = generate_sample(doctor_population, no_hospitals, doctor_range)
-		samples.append({'x': x, 'y': y})
+		x[i, :], y[i] = generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, no_rates)
 
 		if i % 1000 == 0:
 			print('Done {} of {}'.format(i, no_samples))
 
-	save_obj(samples, '50000-samples-11:34')
+	save_obj(x, 'x-50000-samples-11:42')
+	save_obj(y, 'y-50000-samples-11:42')
 
 
 if __name__ == '__main__':
