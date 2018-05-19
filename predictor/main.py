@@ -1,9 +1,11 @@
+from sklearn.externals import joblib
 import numpy as np
 from helpers import load_obj
 from NetworkModel import RegressionModel
-from sklearn.kernel_ridge import KernelRidge
+from data_generator import sample_input
 
-if __name__ == '__main__':
+
+def make_model(verbose=False):
 	x = load_obj('x-50000-samples-14:00')
 	y = load_obj('y-50000-samples-14:00')
 
@@ -25,9 +27,31 @@ if __name__ == '__main__':
 	model = RegressionModel(no_hidden=300)
 	model.fit(x_train, y_train)
 
-	print('Training score: {}'.format(model.score(x_train, y_train)))
-	print('Testing score: {}'.format(model.score(x_test, y_test)))
+	joblib.dump(model, 'model.pkl')
+	if verbose:
+		'Dumped model to disk'
 
-	for i in range(0, 10):
-		print('Predicted: {} True: {}'.format(model.predict(x_test[i].reshape(1,-1)), y_test[i]))
-		print('')
+	if verbose:
+		print('Training score: {}'.format(model.score(x_train, y_train)))
+		print('Testing score: {}'.format(model.score(x_test, y_test)))
+
+
+def predict(category, rate):
+	"""
+	:param category: [1-7]
+	:param rate: [1-4] 
+	:return: 
+	"""
+	model = joblib.load('model.pkl')
+	queue, doctor_mean, hospital_one_hot = sample_input()
+
+	category_one_hot = np.zeros(8)
+	category_one_hot[category-1] = 1
+
+	rate_one_hot = np.zeros(4)
+	rate_one_hot[rate-1] = 1
+
+	feature_map = np.concatenate((np.array([queue]), doctor_mean, hospital_one_hot, category_one_hot, rate_one_hot))
+
+	time = model.predict(feature_map.reshape(1,-1))
+	return time[0], int(round(queue))

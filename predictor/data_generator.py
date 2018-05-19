@@ -40,7 +40,7 @@ def generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, 
 	symptom = generate_symptom(no_symptoms=no_symptoms, no_rates=no_rates)
 	queue = generate_queue()
 	# Make feature map
-	feature_map = np.concatenate((np.array([queue]), doctor_mean, symptom, hospital_one_hot))
+	feature_map = np.concatenate((np.array([queue]), doctor_mean, hospital_one_hot, symptom))
 	time = generate_time(1, queue, doctor_mean)
 	return feature_map, time
 
@@ -51,6 +51,13 @@ def generate_symptom(no_symptoms, no_rates):
 	symptom[np.random.randint(0, symptom.shape[0])] = 1
 	rate[np.random.randint(0, rate.shape[0])] = 1
 	return np.concatenate((symptom, rate))
+
+
+def sample_input(no_hospitals=3, doctor_range=(10, 100)):
+	doctor_population = generate_doctors(population_size=1000, no_features=10)
+	hospital_one_hot, doctor_mean = generate_hospitals(no_hospitals, doctor_range, doctor_population)
+	queue = generate_queue()
+	return queue, doctor_mean, hospital_one_hot
 
 
 def generate_dataset():
