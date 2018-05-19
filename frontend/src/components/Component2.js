@@ -4,7 +4,7 @@ import './Component2.scss';
 
 class Component2 extends Component {
   getColor = (val) => {
-    let color = val == this.props.pain ? 'white' : 'transparent';
+    let color = val <= this.props.pain ? 'white' : 'transparent';
     return color;
   }
 

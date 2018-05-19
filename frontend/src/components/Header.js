@@ -5,7 +5,8 @@ import './Header.scss';
 
 class Header extends Component {
   showBack() {
-    return this.props.path !== '/';
+    //return this.props.path !== '/';
+    return false;
   }
 
   showHelp() {

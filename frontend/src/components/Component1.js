@@ -9,7 +9,7 @@ class Component1 extends Component {
   renderButtons() {
     return Object.keys(injuryTypes).map(key => injuryTypes[key])
     .map(({ id, name, alt, icon }) => (
-      <div className="injury-button" key={id}>
+      <div className="injury-button" key={id} style={this.getStyle(id)}>
         <div onClick={() => this.props.onClick(id)}>
           <img src={icon} alt={alt} />
           <span>{name}</span>
@@ -18,9 +18,20 @@ class Component1 extends Component {
     ));
   }
 
+  getStyle = (id) => {
+    const { category } = this.props.injury;
+    if (category === 0) return {};
+
+    const style = {
+      opacity: this.props.injury.category === id ? '1' : '0.5'
+    };   
+    return style;
+  }
+
   render() {
     return (
-      <div className={classNames(
+      <div
+        className={classNames(
         'injury-buttons-wrapper', 
         this.props.slide.left ? 'slideLeft' : '',
         this.props.slide.right ? 'slideRight' : '',

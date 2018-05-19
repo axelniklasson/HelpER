@@ -5,6 +5,7 @@ import Header from './Header';
 import Component1 from './Component1';
 import Component2 from './Component2';
 import Component3 from './Component3';
+import Component4 from './Component4';
 import Footer from './Footer';
 import PageCrumbs from './PageCrumbs';
 
@@ -67,6 +68,9 @@ class App extends Component {
       case '/view3':
         route = forwards ? '/view3' : '/view2';
         break;
+      case '/view4':
+        route = forwards ? '/view4' : '/view3';
+        break;
       default:
         route = '/';
     }
@@ -74,21 +78,28 @@ class App extends Component {
   }
 
   animate(forwards) {
-    this.setState({ slide: { left: forwards, right: !forwards, reverse: !forwards} }, () => {
-      setTimeout(() => {
-        this.setState({ slide: { left: !forwards, right: forwards, reverse: !forwards } }, () => {
-          let route = this.resolveRoute(forwards);
-          this.props.history.push(route);
-        });
-      }, 450); 
+    this.setState({ slide: { left: false, right: false, reverse: false }}, () => {
+      this.setState({ slide: { left: forwards, right: !forwards, reverse: !forwards} }, () => {
+        setTimeout(() => {
+          this.setState({ slide: { left: !forwards, right: forwards, reverse: !forwards } }, () => {
+            let route = this.resolveRoute(forwards);
+            this.props.history.push(route);
+          });
+        }, 450); 
+      });
     });
   }
 
   categoryClicked = (id) => {
-    this.setState({ injury: { ...this.state.injury, category: id } }, () => this.animate(true));
+    this.setState({ injury: { ...this.state.injury, category: id } }, () => {
+      setTimeout(() => {
+        this.animate(true);
+      }, 500);
+    });
   }
 
   backClicked = () => this.animate(false);
+
   painClicked = (id) => {
     this.setState({injury: {...this.state.injury, pain: id}}, () => {
       setTimeout(() => {
@@ -108,7 +119,7 @@ class App extends Component {
         <PageCrumbs injury={this.state.injury} path={this.getPath()} />
         <div className="main">
           <Route exact path="/" render={() => {
-            return <Component1 slide={this.state.slide} onClick={this.categoryClicked} />}
+            return <Component1 slide={this.state.slide} injury={this.state.injury} onClick={this.categoryClicked} />}
           } />
           <Route path="/view2" render={() => {
             return <Component2 slide={this.state.slide} pain={this.state.injury.pain} onClick={this.painClicked}
@@ -122,6 +133,9 @@ class App extends Component {
           <Route path="/view3" render={() => {
             return <Component3 slide={this.state.slide} suggestions={this.state.suggestions} />}
           } />
+          <Route path="/view4" render={() => {
+            return <Component4 slide={this.state.slide} />} 
+          }/>
         </div>
         <Footer className="footer" />
       </div>

@@ -22,8 +22,8 @@ class Component3 extends Component {
             <span className="name">{el.name}</span> 
             <div className="extra-info">
               <span>{`Waiting time: ${el.waitingTime} min`}</span>
-              <span>{`Queue: ${el.queue || 5} people`}</span>
-              <span>{`Distance: ${el.distance / 1000} km`}</span>
+              <span>{`Queue: ${el.queue} people`}</span>
+              <span>{`Distance: ${Math.round( el.distance * 10 ) / 10} km`}</span>
             </div>
           </div>
         ))} 
