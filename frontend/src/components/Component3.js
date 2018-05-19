@@ -37,7 +37,7 @@ class Component3 extends Component {
     return `${hours} h ${minutes} min`;
   }
 
-  locationHref = (lon, lat) => `geo:${lon},${lat}`;
+  locationHref = (lat, lon) => `geo:${lat},${lon}`;
 
   render() {
     let { suggestions } = this.props;

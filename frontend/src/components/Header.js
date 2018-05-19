@@ -10,7 +10,7 @@ class Header extends Component {
   }
 
   showHelp() {
-    return true;
+    return false;
   }
 
   render() {
