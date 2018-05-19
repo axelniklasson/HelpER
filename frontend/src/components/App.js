@@ -6,6 +6,7 @@ import Component1 from './Component1';
 import Component2 from './Component2';
 import Component3 from './Component3';
 import Footer from './Footer';
+import PageCrumbs from './PageCrumbs';
 
 import './App.scss';
 
@@ -22,6 +23,7 @@ class App extends Component {
       <Router>
         <div className="app">
           <Header />
+          <PageCrumbs injury="{}" />
           <div className="main">
             <Route exact path="/" component={Component1} />
             <Route path="/view2" component={Component2} />
