@@ -16,10 +16,13 @@ class PageCrumbs extends Component {
       case '/view3':
         currentStep = 3;
         break;
+      case '/view4':
+        currentStep = 4;
+        break;
       default:
         currentStep = 1;
     }
-    const maxSteps = 3;
+    const maxSteps = 4;
     return `${currentStep}/${maxSteps}`;
   }
 
