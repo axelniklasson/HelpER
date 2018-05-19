@@ -1,12 +1,37 @@
 import React, { Component } from 'react';
 
+import Feet from '../res/png/feet.png';
+
+import './Component1.scss';
+
 class Component1 extends Component {
   render() {
     return (
-      <div>
-        <h1>Component1</h1>
-        <p>Stay tuned for some awesome content</p>
-        <img alt="logo" src="https://updates.theteamie.com/wp-content/uploads/2016/08/hackathon-cover-image1.png" />
+      <div className="injury-buttons-wrapper">
+        <div className="injury-button">
+          <div>
+            <img src={Feet} alt="feet" />
+            <span>Feet</span>
+          </div>
+        </div>
+        <div className="injury-button">
+          <div>
+            <img src={Feet} alt="feet" />
+            <span>Feet</span>
+          </div>
+        </div>
+        <div className="injury-button">
+          <div>
+            <img src={Feet} alt="feet" />
+            <span>Feet</span>
+          </div>
+        </div>
+        <div className="injury-button">
+          <div>
+            <img src={Feet} alt="feet" />
+            <span>Feet</span>
+          </div>
+        </div>
       </div>
     ); 
   }

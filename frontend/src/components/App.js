@@ -20,12 +20,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="app">
           <Header />
-          <Route exact path="/" component={Component1} />
-          <Route path="/view2" component={Component2} />
-          <Route path="/view3" component={Component3} />
-          <Footer />
+          <div className="main">
+            <Route exact path="/" component={Component1} />
+            <Route path="/view2" component={Component2} />
+            <Route path="/view3" component={Component3} />
+          </div>
+          <Footer className="footer" />
         </div>
       </Router>
     );
