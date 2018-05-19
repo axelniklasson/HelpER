@@ -5,6 +5,7 @@ import Header from './Header';
 import Component1 from './Component1';
 import Component2 from './Component2';
 import Component3 from './Component3';
+import Component4 from './Component4';
 import Footer from './Footer';
 import PageCrumbs from './PageCrumbs';
 
@@ -67,6 +68,9 @@ class App extends Component {
       case '/view3':
         route = forwards ? '/view3' : '/view2';
         break;
+      case '/view4':
+        route = forwards ? '/view4' : '/view3';
+        break;
       default:
         route = '/';
     }
@@ -122,6 +126,9 @@ class App extends Component {
           <Route path="/view3" render={() => {
             return <Component3 slide={this.state.slide} suggestions={this.state.suggestions} />}
           } />
+          <Route path="/view4" render={() => {
+            return <Component4 slide={this.state.slide} />} 
+          }/>
         </div>
         <Footer className="footer" />
       </div>
