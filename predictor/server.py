@@ -20,19 +20,25 @@ def post_index():
         [dict(name='Sahlgrenska',
         distance=1350,
         waitingTime=47,
-        recommended=True
+        recommended=True,
+        lat=57.6823672,
+        long=11.9592431
         ),
         dict(
         name='Mölndal',
         distance=750,
         waitingTime=35,
-        recommended=False
+        recommended=False,
+        lat=57.6612323,
+        long=12.0101488
         ),
         dict(
         name='Östra Sjukhuset',
         distance=2304,
         waitingTime=102,
-        recommended=False
+        recommended=False,
+        lat=57.7215131,
+        long=12.0500316
         )]
     )
 
