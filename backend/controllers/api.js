@@ -37,7 +37,7 @@ const hospitals = [{
 }];
 
 router.use((req, res, next) => {
-  console.log('Time:', Date.now(), ', #', calls, ': ', req.baseUrl);
+  console.log('PID:', process.pid, '- Time:', Date.now(), ', #', calls, ': ', req.baseUrl);
   calls++;
   next();
 })
@@ -74,7 +74,7 @@ router.route('/injury')
 
       // send category and pain to prediction
       // TODO: INSERT WAITING TIMES AND RECOMMENDATION INTO OBJECT
-      ipc.requestPrediction().then(function(parsedData) {
+      ipc.requestPrediction(category, pain).then(function(prediction) {
         res.json(response);
       })
     } catch(e) {
