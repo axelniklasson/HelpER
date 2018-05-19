@@ -92,7 +92,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header injury={this.state.injury} onBack={this.backClicked} />
+        <Header injury={this.state.injury} path={this.getPath()} onBack={this.backClicked} />
         <PageCrumbs injury={this.state.injury} path={this.getPath()} />
         <div className="main">
           <Route exact path="/" render={() => {
@@ -102,7 +102,9 @@ class App extends Component {
             return <Component2 slide={this.state.slide} onClick={this.painClicked} />}
           } />
 
-          <Route exact path="/view3" render={() => <Component3 />} />
+          <Route path="/view3" render={() => {
+            return <Component3 slide={this.state.slide} />}
+          } />
         </div>
         <Footer className="footer" />
       </div>

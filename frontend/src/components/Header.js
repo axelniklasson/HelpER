@@ -5,9 +5,9 @@ import './Header.scss';
 
 class Header extends Component {
   showBack() {
-    const { category } = this.props.injury || {};
-    return category !== 0;
+    return this.props.path !== '/';
   }
+
   showHelp() {
     return true;
   }

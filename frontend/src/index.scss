@@ -31,6 +31,10 @@ body {
 
   animation: slideRight 0.5s;
   animation-iteration-count: 1;
+
+  &.reverse {
+    animation-direction: reverse; 
+  }
 }
 
 .slideLeft {
@@ -38,6 +42,10 @@ body {
 
   animation: slideLeft 0.5s;
   animation-iteration-count: 1;
+
+  &.reverse {
+    animation-direction: reverse; 
+  }
 }
 
 .footer {
