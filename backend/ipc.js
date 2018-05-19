@@ -1,4 +1,4 @@
-const rp = require('request-promise');
+const rp      = require('request-promise');
 const baseUrl = 'http://localhost:3001'
 
 exports.heartbeat = function() {
