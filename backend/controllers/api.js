@@ -40,9 +40,9 @@ router.route('/status')
     res.json({'status':'running', 'requests':calls});
   })
 
-router.route('/injuiry')
+router.route('/injury')
   .get((req, res, next) => {
-    res.status(400).json({'status':'error', 'msg':'You need to POST an injuiry öbject here'});
+    res.status(400).json({'status':'error', 'msg':'You need to POST an injury öbject here'});
   })
   .post((req, res, next) => {
     try{
