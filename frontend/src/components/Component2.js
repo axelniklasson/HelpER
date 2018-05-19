@@ -47,15 +47,16 @@ class Component2 extends Component {
         this.props.slide.right ? 'slideRight' : '',
         this.props.slide.reverse ? 'reverse' : ''
       )}>
-        <div className="pain-buttons-wrapper">{this.renderButtons()}</div>
+        <div className="pain-buttons-wrapper">
+          <div className="pain-text text-center">
+            <span>"How much pain do you have?"</span>
+          </div>
+          {this.renderButtons()}
+        </div>
         {this.state.loadingSuggestions &&
           <div className="loader-wrapper text-center">
             <div className="loader"></div>
             <p>Getting suggestions</p>
-          </div>
-        ||
-          <div className="pain-text text-center">
-            <span>"How much pain do you have?"</span>
           </div>
         }
      </div>
