@@ -15,9 +15,6 @@ class Component4 extends Component {
         this.props.slide.right ? 'slideRight' : '',
         this.props.slide.reverse ? 'reverse' : ''
       )}>
-        <div className="overview-wrapper">
-          <div>
-        </div>
       </div>
     ); 
   }
