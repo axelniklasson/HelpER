@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+from main import predict
+import json
 
 app = Flask(__name__)
 
@@ -14,32 +16,20 @@ def get_index():
 
 @app.route('/', methods=['POST'])
 def post_index():
-    calculate()
-    # mockup data for now
+    temp = request.get_json()
+    pain = int(temp['pain'])
+    category = int(temp['category'])
+    waitingTime, queue = predict(category, pain)
+    waitingTime.tolist()
+    queue.tolist()
+
     return jsonify(
-        [dict(name='Sahlgrenska',
-        distance=1350,
-        waitingTime=47,
-        recommended=True,
-        lat=57.6823672,
-        long=11.9592431
-        ),
-        dict(
-        name='Mölndal',
-        distance=750,
-        waitingTime=35,
-        recommended=False,
-        lat=57.6612323,
-        long=12.0101488
-        ),
-        dict(
-        name='Östra Sjukhuset',
-        distance=2304,
-        waitingTime=102,
-        recommended=False,
-        lat=57.7215131,
-        long=12.0500316
-        )]
+        waitingTime0=waitingTime[0],
+        waitingTime1=waitingTime[1],
+        waitingTime2=waitingTime[2],
+        queue0=queue[0],
+        queue1=queue[1],
+        queue2=queue[2]
     )
 
 if __name__ == '__main__':

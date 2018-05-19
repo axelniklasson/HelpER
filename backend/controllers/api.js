@@ -73,8 +73,18 @@ router.route('/injury')
       response[2].distance = distance.getDistanceFromLatLonInKm(userLat, userLong, hospitals[2].lat, hospitals[2].long);
 
       // send category and pain to prediction
-      // TODO: INSERT WAITING TIMES AND RECOMMENDATION INTO OBJECT
       ipc.requestPrediction(category, pain).then(function(prediction) {
+        // insert queues
+        response[0].queue = prediction['queue0'];
+        response[1].queue = prediction['queue1'];
+        response[2].queue = prediction['queue2'];
+
+        // insert waiting times
+        response[0].waitingTime = prediction['waitingTime0'];
+        response[1].waitingTime = prediction['waitingTime1'];
+        response[2].waitingTime = prediction['waitingTime2'];
+
+        // send the calculated values
         res.json(response);
       })
     } catch(e) {
