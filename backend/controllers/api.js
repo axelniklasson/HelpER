@@ -84,6 +84,14 @@ router.route('/injury')
         response[1].waitingTime = prediction['waitingTime1'];
         response[2].waitingTime = prediction['waitingTime2'];
 
+        // sort by waiting time and recommend
+        response.sort(function(a, b) {
+          return a.waitingTime > b.waitingTime;
+        });
+        response.sort();
+        response[0].recommended=true;
+
+
         // send the calculated values
         res.json(response);
       })
