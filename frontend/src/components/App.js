@@ -29,8 +29,23 @@ class App extends Component {
       slide: {
         in: true,
         out: false
+      },
+      position: {
+        latitude: 0,
+        longitude: 0,
       }
     };
+    this.getLocation();
+  }
+
+  getLocation() {
+    if (!navigator.geolocation) {
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      this.setState({ position: { latitude, longitude } });
+    });
   }
 
   animateForwards() {
