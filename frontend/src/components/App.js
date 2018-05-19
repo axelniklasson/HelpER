@@ -6,6 +6,7 @@ import Component1 from './Component1';
 import Component2 from './Component2';
 import Component3 from './Component3';
 import Footer from './Footer';
+import PageCrumbs from './PageCrumbs';
 
 import './App.scss';
 
@@ -16,15 +17,15 @@ class App extends Component {
     // root state
     this.state = {
       injury: {
-        category: -1,
-        pain: -1
+        category: 0,
+        pain: 0
       },
       location: {
-        lat: -1,
-        lon: -1
+        lat: 0,
+        lon: 0
       },
       suggestions: [],
-      selectedER: -1
+      selectedER: 0
     };
   }
 
@@ -37,6 +38,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header />
+        <PageCrumbs injury={this.state.injury} />
         <p>{this.state.injury.category}</p>
         <div className="main">
           <Route exact path="/" render={() => <Component1 onClick={this.categoryClicked} />} />
