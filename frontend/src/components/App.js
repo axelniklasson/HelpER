@@ -7,6 +7,8 @@ import Component2 from './Component2';
 import Component3 from './Component3';
 import Footer from './Footer';
 
+import './App.scss';
+
 class App extends Component {
   constructor(props) {
     super(props); 

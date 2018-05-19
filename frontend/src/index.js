@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import './index.css'
+import './index.scss'
 
 // Load Roboto typeface
 require('typeface-roboto')
