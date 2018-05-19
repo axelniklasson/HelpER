@@ -41,6 +41,12 @@ class App extends Component {
     this.getLocation();
   }
 
+  componentDidMount() {
+    if (this.getPath() !== '/') {
+      this.props.history.replace('/');
+    }
+  }
+
   getLocation() {
     if (!navigator.geolocation) {
       return;
