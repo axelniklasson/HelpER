@@ -38,7 +38,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header injury={this.state.injury}/>
         <PageCrumbs injury={this.state.injury} />
         <p>{this.state.injury.category}</p>
         <div className="main">
