@@ -47,6 +47,8 @@ router.route('/injuiry')
       console.log(req.body);
       const category = req.body.category;
       const pain     = req.body.pain;
+      const lat      = req.body.lat;
+      const long     = req.body.long;
       // PERFORM ACTIONS HERE
       res.json(hospitals);
     } catch(e) {
