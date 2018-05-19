@@ -1,11 +1,7 @@
 from flask import Flask, request, jsonify
 from main import predict
-import json
 
 app = Flask(__name__)
-
-def calculate():
-    pass
 
 @app.route('/', methods=['GET'])
 def get_index():
