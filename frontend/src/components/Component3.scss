@@ -47,13 +47,15 @@
     display: flex;
     flex-direction: column;
 
-    button {
+    button, a {
       margin: 32px 8px;
       font-size: 16px;
       background: none;
       padding: 16px;
       border: 1px solid white;
       border-radius: 32px;
+      text-align: center;
+      text-decoration: none;
     }
   }
 }
