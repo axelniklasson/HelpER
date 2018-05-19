@@ -10,11 +10,14 @@ class Component4 extends Component {
   render() {
     return (
       <div className={classNames(
-        'injury-buttons-wrapper', 
+        'overview-wrapper', 
         this.props.slide.left ? 'slideLeft' : '',
         this.props.slide.right ? 'slideRight' : '',
         this.props.slide.reverse ? 'reverse' : ''
       )}>
+        <div className="overview-wrapper">
+          <div>
+        </div>
       </div>
     ); 
   }
