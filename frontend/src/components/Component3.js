@@ -37,7 +37,7 @@ class Component3 extends Component {
     return `${hours} h ${minutes} min`;
   }
 
-  locationHref = (lat, lon) => `geo:${lat},${lon}`;
+  locationHref = (lat, lon) => `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
 
   render() {
     let { suggestions } = this.props;
@@ -69,7 +69,7 @@ class Component3 extends Component {
               {this.isSelected(el.id) &&
                 <div className="selection">
                   <div>{this.selectedCategory.name}</div>
-                  <a href={this.locationHref(el.long, el.lat)}>Get directions</a>
+                  <a href={this.locationHref(el.lat, el.long)}>Get directions</a>
                 </div>}
             </div>
         ))}
