@@ -38,5 +38,4 @@ exports.heartbeat = function() {
       console.error(`Got error: ${e.message}`);
     });
   })
-
 };

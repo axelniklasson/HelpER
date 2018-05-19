@@ -2,6 +2,11 @@ const express = require('express');
 const fallback = require('express-history-api-fallback');
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
+
+// Parser middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import API
 console.log('- Starting API')

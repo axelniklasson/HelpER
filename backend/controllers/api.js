@@ -3,20 +3,56 @@ const router    = express.Router();
 
 var calls = 0;
 
-router.use(function (req, res, next) {
+const hospitals = [{
+'name':'Sahlgrenska',
+'distance':1350,
+'waitingTime':47,
+'recommended':true
+},
+{
+'name':'Mölndal',
+'distance':750,
+'waitingTime':35,
+'recommended':false
+},
+{
+'name':'Östra Sjukhuset',
+'distance':2304,
+'waitingTime':102,
+'recommended':false
+}];
+
+router.use((req, res, next) => {
   console.log('Time:', Date.now(), ', #', calls, ': ', req.baseUrl);
   calls++;
   next();
 })
 
 router.route('/')
-  .get(function(req, res, next) {
+  .get((req, res, next) => {
     res.redirect('/api/v1/status');
   })
 
 router.route('/status')
-  .get(function(req, res, next) {
+  .get((req, res, next) => {
     res.json({'status':'running', 'requests':calls});
+  })
+
+router.route('/injuiry')
+  .get((req, res, next) => {
+    res.status(400).json({'status':'error', 'msg':'You need to POST an injuiry öbject here'});
+  })
+  .post((req, res, next) => {
+    try{
+      console.log(req.body);
+      const category = req.body.category;
+      const pain     = req.body.pain;
+      // PERFORM ACTIONS HERE
+      res.json(hospitals);
+    } catch(e) {
+      res.status(400).json({'status':'error', 'msg':'Invalid input data'});
+      return;
+    }
   })
 
 module.exports = router;
