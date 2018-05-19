@@ -5,9 +5,8 @@ class Component2 extends Component {
   render() {
     return (
       <div className={classNames(
-        'injury-buttons-wrapper', 
-        this.props.slide.in ? 'slideIn' : '',
-        this.props.slide.out ? 'slideOut' : ''
+        this.props.slide.left ? 'slideLeft' : '',
+        this.props.slide.right ? 'slideRight' : ''
       )}>
         <h1>Component2</h1>
       </div>

@@ -19,12 +19,11 @@ class Component1 extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className={classNames(
         'injury-buttons-wrapper', 
-        this.props.slide.in ? 'slideIn' : '',
-        this.props.slide.out ? 'slideOut' : ''
+        this.props.slide.left ? 'slideLeft' : '',
+        this.props.slide.right ? 'slideRight' : ''
       )}>
         {this.renderButtons()}
       </div>

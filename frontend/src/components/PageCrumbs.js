@@ -4,10 +4,21 @@ import './PageCrumbs.scss';
 
 class PageCrumbs extends Component {
   pageNumber() {
-    const { category, pain } = this.props.injury || {};
-    console.log(this.props);
-    console.log(category, pain);
-    const currentStep = !category ? 1 : !pain ? 2 : 3;
+    const { path } = this.props;
+    let currentStep;
+    switch (path) {
+      case '/':
+        currentStep = 1;
+        break;
+      case '/view2':
+        currentStep = 2;
+        break;
+      case '/view3':
+        currentStep = 3;
+        break;
+      default:
+        currentStep = 1;
+    }
     const maxSteps = 3;
     return `${currentStep}/${maxSteps}`;
   }

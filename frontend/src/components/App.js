@@ -27,8 +27,8 @@ class App extends Component {
       suggestions: [],
       selectedER: 0,
       slide: {
-        in: true,
-        out: false
+        left: false,
+        right: true
       },
       position: {
         latitude: 0,
@@ -48,23 +48,49 @@ class App extends Component {
     });
   }
 
-  animateForwards() {
-    this.setState({ slide: { in: false, out: true } }, () => {
+  getPath() {
+    return this.props.location.pathname;
+  }
+
+  resolveRoute(forwards) {
+    const path = this.getPath();
+    let route = path;
+
+    switch (path) {
+      case '/':
+        route = forwards ? '/view2' : '/';
+        break;
+      case '/view2':
+        route = forwards ? '/view3' : '/';
+        break;
+      default:
+        route = '/';
+    }
+    return route;
+  }
+
+  animate(forwards) {
+    this.setState({ slide: { left: forwards, right: !forwards } }, () => {
       setTimeout(() => {
-        this.setState({ slide: { in: true, out: false } }, () => this.props.history.push('/view2'));
+        this.setState({ slide: { left: !forwards, right: forwards } }, () => {
+          let route = this.resolveRoute(forwards);
+          this.props.history.push(route);
+        });
       }, 450); 
     });
   }
 
   categoryClicked = (id) => {
-    this.setState({ injury: { ...this.state.injury, category: id } }, () => this.animateForwards());
+    this.setState({ injury: { ...this.state.injury, category: id } }, () => this.animate(true));
   }
+
+  backClicked = () => this.animate(false);
 
   render() {
     return (
       <div className="app">
-        <Header injury={this.state.injury}/>
-        <PageCrumbs injury={this.state.injury} />
+        <Header injury={this.state.injury} onBack={this.backClicked} />
+        <PageCrumbs injury={this.state.injury} path={this.getPath()} />
         <div className="main">
           <Route exact path="/" render={() => {
             return <Component1 slide={this.state.slide} onClick={this.categoryClicked} />}

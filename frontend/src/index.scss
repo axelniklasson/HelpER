@@ -14,27 +14,27 @@ body {
   text-align: center;
 }
 
-@keyframes slideIn {
+@keyframes slideRight {
   0%   { left: 100%; }
   100% { left: 0%; }
 }
 
-@keyframes slideOut {
+@keyframes slideLeft {
   0% { right: 0 }
   100%   { right: 100%; }
 }
 
-.slideIn {
+.slideRight {
   position: relative;
 
-  animation: slideIn 0.5s;
+  animation: slideRight 0.5s;
   animation-iteration-count: 1;
 }
 
-.slideOut {
+.slideLeft {
   position: relative;
 
-  animation: slideOut 0.5s;
+  animation: slideLeft 0.5s;
   animation-iteration-count: 1;
 }
 

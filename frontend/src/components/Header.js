@@ -16,7 +16,7 @@ class Header extends Component {
     return (
       <div className="page-header">
         {this.showBack() &&
-        <button className="header-button">
+        <button className="header-button" onClick={this.props.onBack}>
           <i className="material-icons">arrow_back</i>
         </button>}
         <div className="text-center">
