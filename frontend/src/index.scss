@@ -21,19 +21,19 @@ body {
 
 @keyframes slideOut {
   0% { right: 0 }
-  100%   { right: calc(100%); }
+  100%   { right: 100%; }
 }
 
 .slideIn {
   position: relative;
 
-  animation: slideIn 1s;
+  animation: slideIn 0.5s;
   animation-iteration-count: 1;
 }
 
 .slideOut {
   position: relative;
 
-  animation: slideOut 1s;
+  animation: slideOut 0.5s;
   animation-iteration-count: 1;
 }

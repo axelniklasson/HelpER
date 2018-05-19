@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
-import classnames from 'classnames';
+import { Route, withRouter } from 'react-router-dom';
 
 import Header from './Header';
 import Component1 from './Component1';
@@ -26,13 +25,24 @@ class App extends Component {
         lon: 0
       },
       suggestions: [],
-      selectedER: 0
+      selectedER: 0,
+      slide: {
+        in: true,
+        out: false
+      }
     };
   }
 
+  animateForwards() {
+    this.setState({ slide: { in: false, out: true } }, () => {
+      setTimeout(() => {
+        this.setState({ slide: { in: true, out: false } }, () => this.props.history.push('/view2'));
+      }, 450); 
+    });
+  }
+
   categoryClicked = (id) => {
-    this.setState({ injury: { ...this.state.injury, category: id } });
-    this.props.history.push('/view2');
+    this.setState({ injury: { ...this.state.injury, category: id } }, () => this.animateForwards());
   }
 
   render() {
@@ -40,10 +50,14 @@ class App extends Component {
       <div className="app">
         <Header injury={this.state.injury}/>
         <PageCrumbs injury={this.state.injury} />
-        <p>{this.state.injury.category}</p>
         <div className="main">
-          <Route exact path="/" render={() => <Component1 onClick={this.categoryClicked} />} />
-          <Route exact path="/view2" render={() => <Component2 />} />
+          <Route exact path="/" render={() => {
+            return <Component1 slide={this.state.slide} onClick={this.categoryClicked} />}
+          } />
+          <Route path="/view2" render={() => {
+            return <Component2 slide={this.state.slide} />}
+          } />
+
           <Route exact path="/view3" render={() => <Component3 />} />
         </div>
         <Footer className="footer" />
