@@ -31,3 +31,22 @@
     }
   }
 }
+
+.help {
+  width: 262px;
+  margin: auto;
+  margin-top: 40px;
+  border: 1px solid white;
+  font-size: 18px;
+  text-align: center;
+  padding: 40px 22px;
+
+  ol {
+    margin-top: 40px;
+    text-align: left;
+    margin-left: 5px;
+    li {
+      margin: 10px 0;
+    }
+  }
+}

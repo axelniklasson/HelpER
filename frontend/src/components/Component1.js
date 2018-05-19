@@ -29,6 +29,23 @@ class Component1 extends Component {
   }
 
   render() {
+    
+    if (this.props.showHelp) {
+      return(
+        <div className="help">
+          <p>HelpER is an application that helps YOU visit a doctor as fast as possible</p> 
+
+          <div>
+            <ol type="1">
+              <li>Describe your damage</li>
+              <li>Describe your pain</li>
+              <li>... and we will show you where to go</li>
+            </ol> 
+          </div>
+        </div>
+      ); 
+    }
+
     return (
       <div>
         <div
