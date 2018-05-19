@@ -35,7 +35,8 @@ class App extends Component {
       position: {
         latitude: 0,
         longitude: 0,
-      }
+      },
+      showHelp: false
     };
     this.getLocation();
   }
@@ -53,6 +54,10 @@ class App extends Component {
 
   getPath() {
     return this.props.location.pathname;
+  }
+
+  toggleHelp = () => {
+    this.setState({ showHelp: !this.state.showHelp });
   }
 
   resolveRoute(forwards) {
@@ -115,11 +120,11 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header injury={this.state.injury} path={this.getPath()} onBack={this.backClicked} />
+        <Header toggleHelp={this.toggleHelp} injury={this.state.injury} path={this.getPath()} onBack={this.backClicked} />
         <PageCrumbs injury={this.state.injury} path={this.getPath()} />
         <div className="main">
           <Route exact path="/" render={() => {
-            return <Component1 slide={this.state.slide} injury={this.state.injury} onClick={this.categoryClicked} />}
+            return <Component1 showHelp={this.state.showHelp} slide={this.state.slide} injury={this.state.injury} onClick={this.categoryClicked} />}
           } />
           <Route path="/view2" render={() => {
             return <Component2 slide={this.state.slide} pain={this.state.injury.pain} onClick={this.painClicked}

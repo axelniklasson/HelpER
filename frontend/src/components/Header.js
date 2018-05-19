@@ -27,7 +27,7 @@ class Header extends Component {
           </div>
         </div>
         {this.showHelp() &&
-        <button className="header-button">
+        <button onClick={this.props.toggleHelp} className="header-button">
           <i className="material-icons text">?</i>
         </button>}
       </div>
