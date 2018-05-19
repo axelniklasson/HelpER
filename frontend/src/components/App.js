@@ -46,6 +46,7 @@ class App extends Component {
     }
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
+      console.log('location found');
       this.setState({ position: { latitude, longitude } });
     });
   }

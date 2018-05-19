@@ -30,14 +30,17 @@ class Component1 extends Component {
 
   render() {
     return (
-      <div
-        className={classNames(
-        'injury-buttons-wrapper', 
-        this.props.slide.left ? 'slideLeft' : '',
-        this.props.slide.right ? 'slideRight' : '',
-        this.props.slide.reverse ? 'reverse' : ''
-      )}>
-        {this.renderButtons()}
+      <div>
+        <div
+          className={classNames(
+          'injury-buttons-wrapper', 
+          this.props.slide.left ? 'slideLeft' : '',
+          this.props.slide.right ? 'slideRight' : '',
+          this.props.slide.reverse ? 'reverse' : ''
+        )}>
+          <p style={{ textAlign: 'center', flexBasis: '100%' }}>"Where does it hurt?"</p>
+          {this.renderButtons()}
+        </div>
       </div>
     ); 
   }
