@@ -9,7 +9,7 @@ def generate_queue(mean=20, std=5):
 
 def generate_time(samples, queue, doctor_mean, mean_wait_time_seconds=1800, std_wait_time_seconds=1200):
 	norm = scipy.linalg.norm(doctor_mean)
-	mean_wait_time_seconds = mean_wait_time_seconds * 10*(1/norm) + (queue * 30)
+	mean_wait_time_seconds = mean_wait_time_seconds * (1/norm) + (queue * 300)
 	sample = np.random.normal(mean_wait_time_seconds, std_wait_time_seconds, samples)
 	return sample
 
@@ -23,16 +23,11 @@ def generate_doctor_population(population_size, no_features=10):
 	return doctor_population
 
 
-def generate_hospitals(no_hospitals, doctor_range, doctor_population):
-	np.random.shuffle(doctor_population)
-	no_doctors = np.random.random_integers(doctor_range[0], doctor_range[1], 1)
-	doctor_indices = np.arange(0, doctor_population.shape[0])
-	choice = np.random.choice(doctor_indices, size=no_doctors, replace=False)
-	doctor_set = doctor_population[choice, :]
+def generate_hospital(no_hospitals):
 	hospital = np.random.randint(0, no_hospitals)
 	one_hot_hospitals = np.zeros(no_hospitals)
 	one_hot_hospitals[hospital] = 1
-	return one_hot_hospitals, doctor_set.mean(axis=0)
+	return one_hot_hospitals
 
 
 def generate_doctors(doctor_range, doctor_population):
@@ -45,16 +40,16 @@ def generate_doctors(doctor_range, doctor_population):
 
 
 def generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, no_rates):
-	hospital_one_hot, doctor_mean = generate_hospitals(no_hospitals, doctor_range, doctor_population)
-	symptom = generate_symptom(no_symptoms=no_symptoms, no_rates=no_rates)
+	doctor_mean = generate_doctors(doctor_range, doctor_population)
+	hospital_one_hot = generate_hospital(no_hospitals)
+	symptom = generate_user_symptom(no_symptoms=no_symptoms, no_rates=no_rates)
 	queue = generate_queue()
-	# Make feature map
 	feature_map = np.concatenate((np.array([queue]), doctor_mean, hospital_one_hot, symptom))
 	time = generate_time(1, queue, doctor_mean)
 	return feature_map, time
 
 
-def generate_symptom(no_symptoms, no_rates):
+def generate_user_symptom(no_symptoms, no_rates):
 	symptom = np.zeros(no_symptoms)
 	rate = np.zeros(no_rates)
 	symptom[np.random.randint(0, symptom.shape[0])] = 1
@@ -62,36 +57,27 @@ def generate_symptom(no_symptoms, no_rates):
 	return np.concatenate((symptom, rate))
 
 
-def sample_input(doctor_range=(10, 100)):
-	doctor_population = generate_doctor_population(population_size=1000, no_features=10)
+def sample_input(doctor_range, doctor_population_size, no_doctor_features):
+	doctor_population = generate_doctor_population(population_size=doctor_population_size, no_features=no_doctor_features)
 	doctor_mean = generate_doctors(doctor_range, doctor_population)
 	queue = generate_queue()
 	return queue, doctor_mean
 
 
-def generate_dataset():
-	doctor_population_size = 1000
-	no_features = 10
-	no_hospitals = 3
-	doctor_range = (10, 100)
-	no_samples = 50000
-	no_symptoms = 8
-	no_rates = 4
+def generate_dataset(doctor_population_size, no_doctor_features, no_hospitals, no_doctors_range, no_samples, no_symptoms, no_rates, filename='samples'):
+	doctor_population = generate_doctor_population(population_size=doctor_population_size, no_features=no_doctor_features)
 
-	doctor_population = generate_doctor_population(population_size=doctor_population_size, no_features=no_features)
+	# The total feature size (the +1 is for the queue)
+	feature_size = no_hospitals + no_doctor_features + no_symptoms + no_rates + 1
 
-	feature_size = no_hospitals + no_features + no_symptoms + no_rates + 1
 	x = np.empty((no_samples, feature_size))
 	y = np.empty(no_samples)
+
 	for i in range(0, no_samples):
-		x[i, :], y[i] = generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, no_rates)
+		x[i, :], y[i] = generate_sample(doctor_population, no_hospitals, no_doctors_range, no_symptoms, no_rates)
 
 		if i % 1000 == 0:
 			print('Done {} of {}'.format(i, no_samples))
 
-	save_obj(x, 'x-50000-samples-14:')
-	save_obj(y, 'y-50000-samples-14:16')
-
-
-if __name__ == '__main__':
-	generate_dataset()
+	save_obj(x, 'x' + filename)
+	save_obj(y, 'y' + filename)
