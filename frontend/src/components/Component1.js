@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import Ankle from '../res/png/ankle.png';
 import Arm from '../res/png/arm.png';
@@ -11,9 +12,25 @@ import Tongue from '../res/png/tongue.png';
 import './Component1.scss';
 
 class Component1 extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      slideIn: false,
+      slideOut: false
+    };
+  }
+
+  componentDidMount = () => this.setState({ slideIn: true, slideOut: false })
+  componentWillUnmount = () => this.setState({ slideIn: false, slideOut: true })
+
   render() {
     return (
-      <div className="injury-buttons-wrapper">
+      <div className={classNames(
+        'injury-buttons-wrapper', 
+        this.state.slideIn ? 'slideIn' : '',
+        this.state.slideOut ? 'slideOut' : ''
+      )}>
         <div className="injury-button">
           <div onClick={() => this.props.onClick(0)}>
             <img src={Ankle} alt="ankle" />

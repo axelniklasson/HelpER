@@ -13,3 +13,27 @@ body {
 .text-center {
   text-align: center;
 }
+
+@keyframes slideIn {
+  0%   { left: 100%; }
+  100% { left: 0%; }
+}
+
+@keyframes slideOut {
+  0% { right: 0 }
+  100%   { right: calc(100%); }
+}
+
+.slideIn {
+  position: relative;
+
+  animation: slideIn 1s;
+  animation-iteration-count: 1;
+}
+
+.slideOut {
+  position: relative;
+
+  animation: slideOut 1s;
+  animation-iteration-count: 1;
+}
