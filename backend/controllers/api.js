@@ -6,28 +6,31 @@ var calls = 0;
 
 // hospitals
 const hospitals = [{
-    'id':0
+    'id':0,
     'name':'Sahlgrenska',
     'distance':0,
     'waitingTime':0,
+    'queue':0,
     'recommended':false,
     'lat':57.6823672,
     'long':11.9592431
   },
   {
-    'id':1
+    'id':1,
     'name':'Mölndal',
     'distance':0,
     'waitingTime':0,
+    'queue':0,
     'recommended':false,
     'lat':57.6612323,
     'long':12.0101488
   },
   {
-    'id':2
+    'id':2,
     'name':'Östra Sjukhuset',
     'distance':0,
     'waitingTime':0,
+    'queue':0,
     'recommended':false,
     'lat':57.7215131,
     'long':12.0500316
