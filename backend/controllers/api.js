@@ -44,7 +44,6 @@ router.route('/injuiry')
   })
   .post((req, res, next) => {
     try{
-      console.log(req.body);
       const category = req.body.category;
       const pain     = req.body.pain;
       const lat      = req.body.lat;
