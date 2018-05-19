@@ -3,12 +3,17 @@ import classNames from 'classnames';
 import './Component2.scss';
 
 class Component2 extends Component {
+  constructor() {
+    super();
+    this.state = { loadingSuggestions: false };
+  }
   getColor = (val) => {
     let color = val <= this.props.pain ? 'white' : 'transparent';
     return color;
   }
 
   onPainDegreeSelection = (pain) => {
+    this.setState({ loadingSuggestions: true });
     this.props.onClick(pain);
     const { category, lat, long } = this.props;
     fetch('https://helper.lejonkulan.ninja/api/v1/injury', {
@@ -20,7 +25,7 @@ class Component2 extends Component {
     })
     .then(res => res.json())
     .then(suggestions => this.props.setSuggestions(suggestions))
-    .catch(err => {});
+    .catch(err => this.setState({ loadingSuggestions: false }));
   }
 
   renderButtons() {
@@ -38,16 +43,21 @@ class Component2 extends Component {
   render() {
     return (
       <div className={classNames(
-        'pain-buttons-wrapper', 
         this.props.slide.left ? 'slideLeft' : '',
         this.props.slide.right ? 'slideRight' : '',
         this.props.slide.reverse ? 'reverse' : ''
       )}>
-      {this.renderButtons()}
-
-      <div className="pain-text">
-        <span>"How much pain do you have?"</span>
-      </div>
+        <div className="pain-buttons-wrapper">{this.renderButtons()}</div>
+        {this.state.loadingSuggestions &&
+          <div className="loader-wrapper text-center">
+            <div className="loader"></div>
+            <p>Getting suggestions</p>
+          </div>
+        ||
+          <div className="pain-text text-center">
+            <span>"How much pain do you have?"</span>
+          </div>
+        }
      </div>
     ); 
   }
