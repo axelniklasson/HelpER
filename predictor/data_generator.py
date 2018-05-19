@@ -14,7 +14,7 @@ def generate_time(samples, queue, doctor_mean, mean_wait_time_seconds=1800, std_
 	return sample
 
 
-def generate_doctors(population_size, no_features=10):
+def generate_doctor_population(population_size, no_features=10):
 	cov_matrix = 0.05 * np.eye(no_features, no_features)
 	mean = 0.5 * np.ones(no_features)
 	doctor_population = np.random.multivariate_normal(mean, cov_matrix, population_size)
@@ -35,6 +35,15 @@ def generate_hospitals(no_hospitals, doctor_range, doctor_population):
 	return one_hot_hospitals, doctor_set.mean(axis=0)
 
 
+def generate_doctors(doctor_range, doctor_population):
+	np.random.shuffle(doctor_population)
+	no_doctors = np.random.random_integers(doctor_range[0], doctor_range[1], 1)
+	doctor_indices = np.arange(0, doctor_population.shape[0])
+	choice = np.random.choice(doctor_indices, size=no_doctors, replace=False)
+	doctor_set = doctor_population[choice, :]
+	return doctor_set.mean(axis=0)
+
+
 def generate_sample(doctor_population, no_hospitals, doctor_range, no_symptoms, no_rates):
 	hospital_one_hot, doctor_mean = generate_hospitals(no_hospitals, doctor_range, doctor_population)
 	symptom = generate_symptom(no_symptoms=no_symptoms, no_rates=no_rates)
@@ -53,11 +62,11 @@ def generate_symptom(no_symptoms, no_rates):
 	return np.concatenate((symptom, rate))
 
 
-def sample_input(no_hospitals=3, doctor_range=(10, 100)):
-	doctor_population = generate_doctors(population_size=1000, no_features=10)
-	hospital_one_hot, doctor_mean = generate_hospitals(no_hospitals, doctor_range, doctor_population)
+def sample_input(doctor_range=(10, 100)):
+	doctor_population = generate_doctor_population(population_size=1000, no_features=10)
+	doctor_mean = generate_doctors(doctor_range, doctor_population)
 	queue = generate_queue()
-	return queue, doctor_mean, hospital_one_hot
+	return queue, doctor_mean
 
 
 def generate_dataset():
@@ -69,7 +78,7 @@ def generate_dataset():
 	no_symptoms = 8
 	no_rates = 4
 
-	doctor_population = generate_doctors(population_size=doctor_population_size, no_features=no_features)
+	doctor_population = generate_doctor_population(population_size=doctor_population_size, no_features=no_features)
 
 	feature_size = no_hospitals + no_features + no_symptoms + no_rates + 1
 	x = np.empty((no_samples, feature_size))

@@ -43,7 +43,6 @@ def predict(category, rate):
 	:return: 
 	"""
 	model = joblib.load('model.pkl')
-	queue, doctor_mean, hospital_one_hot = sample_input()
 
 	category_one_hot = np.zeros(8)
 	category_one_hot[category-1] = 1
@@ -51,7 +50,16 @@ def predict(category, rate):
 	rate_one_hot = np.zeros(4)
 	rate_one_hot[rate-1] = 1
 
-	feature_map = np.concatenate((np.array([queue]), doctor_mean, hospital_one_hot, category_one_hot, rate_one_hot))
+	hospital_one_hot = np.zeros(3)
+	hospital_one_hot[0] = 1
 
-	time = model.predict(feature_map.reshape(1,-1))
-	return time[0], int(round(queue))
+	times = np.zeros_like(hospital_one_hot)
+	queues = np.zeros_like(hospital_one_hot)
+	for i in range(0, hospital_one_hot.shape[0]):
+		queue, doctor_mean = sample_input()
+		queues[i] = int(round(queue))
+		feature_map = np.concatenate((np.array([queue]), doctor_mean, hospital_one_hot, category_one_hot, rate_one_hot))
+		times[i] = model.predict(feature_map.reshape(1,-1))
+		np.roll(hospital_one_hot, 1)
+
+	return times, queues
