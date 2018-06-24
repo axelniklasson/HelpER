@@ -3,6 +3,8 @@ Helping injured people get help faster by directing them to the most suitable em
 
 Winner of the design award at [Gothenburg Startup Hack](http://www.gbgstartuphack.com/) 2018
 
+[![alt text](https://j.gifs.com/wmzRZ8.gif)](https://youtu.be/AUeVCgkFiRM)
+
 ## Approach
 HelpEr guides patients to the most suitable emergency room with respect to the current number of people waiting, the specific injury, historical data and current location. By combining all these factors, patiens can be guided to the right emergency room and get help faster while at the same time minimizing the workload of the staff.
 
